@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Location</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap.min_nishitha.css')}}"> 
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Template Stylesheet -->
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <link href="{{url_for('static',filename='style_nishitha.css')}}" rel="stylesheet">
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+
+    
+    <style>
+        /* body { margin: 0; padding: 0; }
+        #map {position:static;top: 0; bottom: 0; width: 50%; height: 50%;} */
+    </style>
+</head>
+<body onload="geo()">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top px-4 px-lg-5 py-lg-0" style="background-color:#182333">
+        <a href="{{ url_for('home_nishitha') }}" class="navbar-brand d-flex align-items-center">
+            <h1 class="m-0" style="color: #fff;
+            font-size: 40px;
+            padding: 20px 15px;
+            font-weight: 600;">QTS</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-3 py-lg-0">
+                <a href="{{ url_for('home_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">Home</a>
+                <a href="{{ url_for('about_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">About Us</a>
+                <a href="{{ url_for('tracking_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">Tracking</a>
+                <a href="{{ url_for('feature_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">Features</a>
+                <a href="{{ url_for('login_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">IOT Dashboard</a>
+                <a href="{{ url_for('contact_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+  <div id="map" style="position:absolute;width:100%;height:100%;"></div>
+
+  
+    <script>
+        const coordinates = [] ;
+        
+
+        function geo(){
+            
+            navigator.geolocation.watchPosition(
+                data => {
+                    console.log(data);
+                    coordinates.push(data.coords.longitude, data.coords.latitude);
+                    //window.localStorage.setItem("coordinates",JSON.stringify(coordinates));
+                    
+                    
+                    // x.innerHTML = "Latitude: " + data.coords.latitude + 
+                    //  "<br>Longitude: " + data.coords.longitude;
+
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.open("GET","store.php?lat="+data.coords.latitude+"&long="+data.coords.longitude);
+                    xhttp.send();
+                    
+                    const xhttp1 = new XMLHttpRequest();
+                    xhttp1.open("GET","test.html?lat={data.coords.latitude}&long={data.coords.longitude}");
+                    xhttp1.send()
+                    
+                    
+                     mapboxgl.accessToken = 'pk.eyJ1IjoiYW5pa2V0a2Vsa2FyIiwiYSI6ImNsN2l3MmhyZTBzOHo0MXAwZXA3a29zNDkifQ.E4IUUlt0DXa9ZCsL6OC5_g';
+                    const map = new mapboxgl.Map({
+                        container: 'map',
+                        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+                        style: 'mapbox://styles/mapbox/streets-v11',
+                        center: [data.coords.longitude, data.coords.latitude],
+                        zoom: 16
+                    });
+
+                    // Create a default Marker and add it to the map.
+                    const marker1 = new mapboxgl.Marker()
+                        .setLngLat([data.coords.longitude, data.coords.latitude])
+                        .addTo(map);
+                },
+                error => console.log(error),
+                {
+                    enableHighAccuracy: true
+                }
+            );
+            
+        }
+
+        
+        
+    </script>
+</body>
+</html>

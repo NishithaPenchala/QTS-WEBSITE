@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>QTS</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="{{url_for('static',filename='bootstrap.min_nishitha.css')}}"> 
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="{{url_for('static',filename='style_nishitha.css')}}"> 
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top px-4 px-lg-5 py-lg-0" style="background-color:#182333">
+        <a href="{{ url_for('home_nishitha') }}" class="navbar-brand d-flex align-items-center">
+            <h1 class="m-0" style="color: #fff;
+            font-size: 40px;
+            padding: 20px 15px;
+            font-weight: 600;">QTS</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-3 py-lg-0">
+                <a href="{{ url_for('home_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">Home</a>
+                <a href="{{ url_for('about_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">About Us</a>
+                <a href="{{ url_for('tracking_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">Tracking</a>
+                <a href="{{ url_for('feature_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">Features</a>
+                <a href="{{ url_for('login_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">IOT Dashboard</a>
+                <a href="{{ url_for('contact_nishitha') }}" class="nav-item nav-link" style="color: #fff;
+                text-transform: uppercase;
+                font-size: 17px;
+                font-weight:550;">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 450px;">
+                    <div class="position-relative h-100">
+                        <iframe class="position-relative w-100 h-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14764.096604618488!2d87.29207703047436!3d22.314926356090552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1d440255555547%3A0x6f2f20dd0c0d6793!2sIndian%20Institute%20of%20Technology%20Kharagpur!5e0!3m2!1sen!2sin!4v1666159044478!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="border-5  ps-4 mb-5" style="border-left:1px solid #182333">
+                        <h6 class="text-body text-uppercase mb-2">Contact Us</h6>
+                        <h1 class="display-6 mb-0">If You Have Any Query, Please Contact Us</h1>
+                    </div>
+                    
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control border-0 bg-light" id="name" placeholder="Your Name">
+                                    <label for="name" style="font-size: 15px;font-weight:500;font-family: sans-serif;">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control border-0 bg-light" id="email" placeholder="Your Email">
+                                    <label for="email" style="font-size: 15px;font-weight:500;font-family: sans-serif;">Your Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control border-0 bg-light" id="subject" placeholder="Subject">
+                                    <label for="subject" style="font-size: 15px;font-weight:500;font-family: sans-serif;">Subject</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control border-0 bg-light" placeholder="Leave a message here" id="message" style="height: 150px ;font-size: 18px;font-weight:500;font-family: sans-serif;"></textarea>
+                                    <label for="message" style="font-size: 15px;font-weight:500;font-family: sans-serif;">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary py-3 px-5" style="background: linear-gradient(to right, #0921f5, #99a8f4);border-radius:10px"; type="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer-background footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s" style="margin-top:50px;color: #999999;background-color: #182333;">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h1 class="foot-head" style = "margin-bottom:20px;color:white">QTS</h1>
+                    <p style="font-size: 18px;font-weight:500;font-family: sans-serif;">We provide you with best transportation services globally.We strive to deliver your goods at the earliest and safe.</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-square btn-outline-primary me-1" href="" style="border-color:blue;color:blue;"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-square btn-outline-primary me-1" href="" style="border-color:blue;color:blue"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-outline-primary me-1" href="" style="border-color:blue;color:blue"><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-square btn-outline-primary me-0" href="" style="border-color:blue;color:blue"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="foot-head" style = "margin-bottom:20px;color:white">Address</h4>
+                    <p style="font-size: 18px;font-weight:500;font-family: sans-serif;"><i class="fa fa-map-marker-alt " style="margin-right:1em"></i>IIT Kharagpur</p>
+                    <p style="font-size: 18px;font-weight:500;font-family: sans-serif;"><i class="fa fa-phone-alt" style="margin-right:1em"></i>+1234567890</p>
+                    <p style="font-size: 18px;font-weight:500;font-family: sans-serif;"><i class="fa fa-envelope" style="margin-right:1em"></i>info@iitkgp.ac.in</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="foot-head" style = "margin-bottom:20px;color:white">Quick Links</h4>
+                    <a class="btn btn-link" style="display: block;
+                    margin-bottom: 5px;
+                    padding: 0;
+                    text-align: left;
+                    color: #999999;
+                    font-weight: normal;
+                    text-transform: capitalize;
+                    transition: .3s;font-size: 18px;font-weight:500;font-family: sans-serif;" href="{{ url_for('about_nishitha') }}">About Us</a>
+                    <a class="btn btn-link" style="display: block;
+                    margin-bottom: 5px;
+                    padding: 0;
+                    text-align: left;
+                    color: #999999;
+                    font-weight: normal;
+                    text-transform: capitalize;
+                    transition: .3s;font-size: 18px;font-weight:500;font-family: sans-serif;" href="{{ url_for('tracking_nishitha') }}">Tracking</a>
+                    <a class="btn btn-link" style="display: block;
+                    margin-bottom: 5px;
+                    padding: 0;
+                    text-align: left;
+                    color: #999999;
+                    font-weight: normal;
+                    text-transform: capitalize;
+                    transition: .3s;font-size: 18px;font-weight:500;font-family: sans-serif;" href="{{ url_for('feature_nishitha') }}">Features</a>
+                    <a class="btn btn-link" style="display: block;
+                    margin-bottom: 5px;
+                    padding: 0;
+                    text-align: left;
+                    color: #999999;
+                    font-weight: normal;
+                    text-transform: capitalize;
+                    transition: .3s;font-size: 18px;font-weight:500;font-family: sans-serif;" href="{{ url_for('login_nishitha') }}">IOT Dashboard</a>
+                    <a class="btn btn-link" style="display: block;
+                    margin-bottom: 5px;
+                    padding: 0;
+                    text-align: left;
+                    color: #999999;
+                    font-weight: normal;
+                    text-transform: capitalize;
+                    transition: .3s;font-size: 18px;font-weight:500;font-family: sans-serif;" href="">Support</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="foot-head" style = "margin-bottom:20px;color:white">Newsletter</h4>
+                    <p style="font-size: 18px;font-weight:500;font-family: sans-serif;">Reach out to us through the mailid</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control bg-transparent w-100" style="margin-bottom: 1em;" type="text" placeholder="Your email">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid copyright" style=" padding: 25px 0;
+        font-size: 15px;
+        border-top: 1px solid rgba(256, 256, 256, .1);">
+            <div class="container">
+                <div class="row">
+                    <div class="text-center text-center mb-3 mb-md-0" style="font-size: 18px;font-weight:500;font-family: sans-serif;">
+                        &copy; <a href="#" style="font-size: 18px;font-weight:500;font-family: sans-serif;">QTS</a>, All Right Reserved.
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+</body>
+
+</html>

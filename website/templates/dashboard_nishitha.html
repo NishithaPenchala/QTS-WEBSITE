@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    QTS 
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- CSS Files -->
+  <!-- <link id="pagestyle" href="css/dashboard.css" rel="stylesheet" /> -->
+
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("3h4LsA39JRLAFiQyo");
+   })();
+</script>
+  
+<link rel="stylesheet" href="{{url_for('static',filename='bootstrap.min_nishitha.css')}}"> 
+  <link rel="stylesheet" href="{{url_for('static',filename='dashboard_nishitha.css')}}"> 
+
+
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+
+
+  <style>
+
+    #map { position: relative ;top: 0; bottom: 0; width: 150px; height: 400px;}
+
+    .button {
+      border-radius: 20px;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      /* margin: 4px 2px; */
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    
+    .button1 {
+      background-color:#4CAF50 ;
+      color: black;
+      border: 2px solid #4CAF50;
+    }
+    
+    /* .button1:hover {
+      background-color: #4CAF50;
+      color: white;
+    } */
+    
+    .button2 {
+      background-color: white;
+      color: black;
+      border: 2px solid #008CBA;
+    }
+    
+    /* .button2:hover {
+      background-color: #008CBA;
+      color: white;
+    } */
+
+    .orderpara
+    {
+      color:black;
+      font-size:11px;
+      margin-bottom: 0px;
+      font-weight:bold;
+    }
+
+    .orderpara2
+    {
+      color:black;
+      font-size:12px;
+      margin-bottom: 0px;
+      font-weight : bold;
+    }
+
+    .span1
+    {
+      color : green;
+    }
+    
+    </style>
+  
+</head>
+
+<body class="g-sidenav-show  bg-gray-200" onload="geo()">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+    <div class="sidenav-header">
+      <!-- <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i> -->
+      <a class="navbar-brand m-0" href="{{ url_for('home_nishitha') }}" target="_blank">
+        <span class="ms-1 font-weight-bold text-white" style="font-size:28px">QTS</span>
+      </a>
+    </div>
+    <hr class="horizontal light mt-0 mb-2">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-white active bg-gradient-primary" href="{{ url_for('home_nishitha') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <ion-icon name="home-outline" class="material-icons opacity-10"></ion-icon>
+            </div>
+            <span class="nav-link-text ms-1">Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="{{ url_for('tracking_nishitha') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <!-- <i class="material-icons opacity-10">table_view</i> -->
+              <i class="fas fa-location"></i>
+            </div>
+            <span class="nav-link-text ms-1">Tracking</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="{{ url_for('home_nishitha') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">receipt_long</i>
+            </div>
+            <span class="nav-link-text ms-1">Events</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="{{ url_for('home_nishitha') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <!-- <i class="material-icons opacity-10">view_in_ar</i> -->
+              <i class='fas fa-exclamation-circle'></i>
+            </div>
+            <span class="nav-link-text ms-1">Alerts</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="{{ url_for('home_nishitha') }}">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <!-- <i class="material-icons opacity-10">format_textdirection_r_to_l</i> -->
+              <i class="fa fa-sign-out"></i>
+            </div>
+            <span class="nav-link-text ms-1">Sign Out</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+   
+  </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+         
+          <h6 class="font-weight-bolder mb-0">DASHBOARD</h6>
+          <h3>{{data[0]['Temperature']}}</h3>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group input-group-outline">
+              <label class="form-label">Search</label>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+          <div class="user">
+            <img src="{{url_for('static',filename='img/profile.png')}}" style="height:30px;width:30px;border-radius: 20px;">
+        </div>
+          
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row">
+        <h3 style="font-weight:bold;font-size:18px">Real Time Monitoring</h3>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          
+          <div class="card">
+           
+            <div class="card-header p-3 pt-2">
+              
+              <div class="position-absolute">
+                <p class=" mb-0 " style="color:black;font-weight: bold;">Temperature</p>
+              </div>
+              <div class="text-end pt-1 text-sm mb-0 text-capitalize">
+                <select id="DropDownsensor">
+                  <option value="Sensor1" selected="selected">Sensor1</option>
+                  <option value="Sensor2">Sensor2</option>
+                  <option value="Sensor3">Sensor3</option>
+              </select> 
+            </div>
+              <div id="circlecharttemp"></div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="position-absolute">
+                <p class=" mb-0 " style="color:black;font-weight: bold;">Humidity</p>
+              </div>
+              <div class="text-end pt-1 text-sm mb-0 text-capitalize">
+                <select id="DropDown2">
+                  <option value="d2s1" selected="selected">Sensor1</option>
+                  <option value="d2s2">Sensor2</option>
+                  <option value="d2s3">Sensor3</option>
+              </select> 
+              <div id="circlecharthumid"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="position-absolute">
+                <p class=" mb-0 " style="color:black;font-weight: bold;">CO2</p>
+              </div>
+              <div class="text-end pt-1 text-sm mb-0 text-capitalize">
+                <select id="DropDown3">
+                  <option value="d3s1" selected="selected">Sensor1</option>
+                  <option value="d3s2">Sensor2</option>
+                  <option value="d3s3">Sensor3</option>
+              </select> 
+              <div id="circlechartco2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div class="position-absolute">
+                <p class="mb-0 " style="color:black;font-weight: bold;">Ethylene</p>
+              </div>
+              <div class="text-end pt-1 text-sm mb-0 text-capitalize ">
+                <select id="DropDown4">
+                  <option value="d4s1" selected="selected">Sensor1</option>
+                  <option value="d4s2">Sensor2</option>
+                  <option value="d4s3">Sensor3</option>
+              </select> 
+              <div id="circlechartethy"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <h3 style="font-weight:bold;font-size:18px">Live Sensor Data</h3>
+        <div class="col-lg-8 col-md-12 mt-2 mb-4">
+          <div class="card z-index-2 ">
+            <div class="card-header p-0 position-relative bg-transparent"> 
+
+
+
+              <!-- <div class = "pt-3 text-capitalize" style="float:left;padding-left:10px">
+                <button class="button button1" style="border-radius:12px;border-color: black;background-color: #0000FF;border-width:1px;padding-left: 10px;width:80px;color:white"  id="areabutton" onclick="areabt()">Area</button>
+                <button class="button button2" style="border-radius:12px;border-color: black;border-width:1px;padding-left: 10px;width:80px" id="linebutton" onclick="linebt()">Line</button>
+                </div> -->
+              <!-- <h3 style="font-weight:bold;font-size:18px;padding-left:10px">Live Sensor Data</h3> -->
+              
+              
+              <div class="text-end pt-3 text-capitalize" style="padding-right: 10px;float:right">
+                <select id="DropDowngraph">
+                  <option value="Temperature" selected="selected">Temperature</option>
+                  <option value="Humidity">Humidity</option>
+                  <option value="co2ppm">co2ppm</option>
+                  <option value="ethylene1">ethylene1</option>
+              </select> 
+              </div>
+    
+            </div> 
+            <div class="card-body">
+              <div id="linechart"></div>
+              <div class = "pt-3 text-capitalize" style="float:left;padding-left:10px">
+                <button class="button button1" style="border-radius:12px;border-color: black;background-color: #0000FF;border-width:1px;padding-left: 10px;width:80px;color:white"  id="areabutton" onclick="areabt()">Area</button>
+                <button class="button button2" style="border-radius:12px;border-color: black;border-width:1px;padding-left: 10px;width:80px" id="linebutton" onclick="linebt()">Line</button>
+                </div>
+                <div class = "pt-3 text-capitalize" style="float:right;padding-left:10px">
+                  <button class="button button1" style="border-radius:12px;border-color: black;background-color: #0000FF;border-width:1px;padding-left: 10px;width:80px;color:white"  id="dailybutton" onclick="dailybt()" onload="dailybt()">Daily</button>
+                  <button class="button button2" style="border-radius:12px;border-color: black;border-width:1px;padding-left: 10px;width:80px" id="hourbutton" onclick="hourbt()">Hourly</button>
+                  <button class="button button2" style="border-radius:12px;border-color: black;border-width:1px;padding-left: 10px;width:80px" id="weeklybutton" onclick="weeklybt()">Weekly</button>
+                  </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mt-2 mb-4">
+          <div class="card z-index-2  ">
+            <div class="card-header p-0 position-relative bg-transparent">
+              <h3 style="font-weight:bold;font-size:18px" class="p-3">Real Time Events</h3>
+            </div>
+            <div class="card-body" style="padding:9px">
+              <div class="alerts_style" style="padding:9px;background-color: blue;margin-bottom:9px;border-radius: 10px;">
+                <p style="color:white;font-size:11px;margin-bottom: 0px;"><strong><span style="color:red">RedAlert:</span></strong>Temperature Above 20C</p>
+                <p style="color:white;font-size:12px;margin-bottom: 0px;">ID:VYUTR3123</p>
+                <p style="font-size:12px;color:white;margin-bottom: 0px;"><strong>Fri Nov 18 22:23:45</strong></p>
+            </div>
+            <div class="alerts_style" style="padding:9px;background-color: blue;margin-bottom:9px;border-radius: 10px;">
+              <p style="color:white;font-size:11px;margin-bottom: 0px;"><strong><span style="color:red">RedAlert:</span></strong>Humidity Above 89%</p>
+              <p style="color:white;font-size:12px;margin-bottom: 0px;">ID:SHRYW1856</p>
+              <p style="font-size:12px;color:white;margin-bottom: 0px;"><strong>Mon Nov 08 12:13:45</strong></p>
+          </div>
+          <div class="alerts_style" style="padding:9px;background-color: blue;margin-bottom:9px;border-radius: 10px;">
+            <p style="color:white;font-size:11px;margin-bottom: 0px;"><strong><span style="color:red">RedAlert:</span></strong>CO2 Above 23ppm</p>
+            <p style="color:white;font-size:12px;margin-bottom: 0px;">ID:LHYFT3654</p>
+            <p style="font-size:12px;color:white;margin-bottom: 0px;"><strong>Sat Oct 30 15:03:30</strong></p>
+        </div>
+        <div class="alerts_style" style="padding:9px;background-color: blue;margin-bottom:9px;border-radius: 10px;">
+          <p style="color:white;font-size:11px;margin-bottom: 0px;"><strong><span style="color:red">RedAlert:</span></strong>Temperature Above 20C</p>
+          <p style="color:white;font-size:12px;margin-bottom: 0px;">ID:HJUYT2675</p>
+          <p style="font-size:12px;color:white;margin-bottom: 0px;"><strong>Thur Oct 19 02:05:19</strong></p>
+      </div>
+      <div class="alerts_style" style="padding:9px;background-color: blue;margin-bottom:9px;border-radius: 10px;">
+        <p style="color:white;font-size:11px;margin-bottom: 0px;"><strong><span style="color:red">RedAlert:</span></strong>Temperature Above 20C</p>
+        <p style="color:white;font-size:12px;margin-bottom: 0px;">ID:HJUYT2675</p>
+        <p style="font-size:12px;color:white;margin-bottom: 0px;"><strong>Thur Oct 19 02:05:19</strong></p>
+    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+          <div class="card">
+            <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-6 col-7">
+                  <h3 style="font-weight:bold;font-size:18px">Tracking</h3>
+                  
+                  <!-- <p class="text-sm mb-0">
+                    <i class="fa fa-check text-info" aria-hidden="true"></i>
+                    <span class="font-weight-bold ms-1">30 done</span> this month
+                  </p> -->
+
+                </div>
+      
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div id="map" style="width:635px;height:500px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="card">
+            <div class="card-header pb-0">
+              <h3 style="font-weight:bold;font-size:18px">Traceability</h3> 
+              
+              
+              <!-- <h6>Order Status</h6> -->
+
+
+              <!-- <button class="button button1" style="width:40%" id="button1" onclick="bt1()">Ongoing</button>
+              <button class="button button2" style="width:40%" id="button2" onclick="bt2()">Completed</button>
+               -->
+
+
+              <!-- <p class="text-sm">
+                <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+                <span class="font-weight-bold">24%</span> this month
+              </p> -->
+
+            </div>
+            <div class="p-3">
+              <div class="alerts_style" style="padding:9px;margin-bottom:9px;border-radius:10px;background-color: aliceblue;" onclick="execute1()" id="box1">
+                <p  class="orderpara" id="c1p1"><strong><span class="span1" id="span1">OrderId:</span> HJIGL3458</strong></p>
+                <p  class="orderpara2" id="c1p2"><strong>Shipment in transit on Fri Nov 18 22:23:45</strong></p>
+              </div>
+              <div class="alerts_style" style="padding:9px;margin-bottom:9px;border-radius:10px;background-color: aliceblue;" onclick="execute2()" id="box2">
+                <p class="orderpara" id="c2p1"><strong><span style="color:green" id="span2">OrderId:</span> AHUTK1564</strong></p>
+                <p class="orderpara2" id="c2p2"><strong>Shipment in truck Fri Nov 10 22:23:45</strong></p>
+              </div>
+              <div class="alerts_style" style="padding:9px;margin-bottom:9px;border-radius:10px;background-color: aliceblue;" onclick="execute3()" id="box3">
+                <p class="orderpara" id="c3p1"><strong><span style="color:green" id="span3">OrderId:</span> TYERI2456</strong></p>
+                <p class="orderpara2" id="c3p2"><strong>Shipment enrouted in sea Mon Nov 2 22:23:45</strong></p>
+              </div>
+              </div>
+            </div>
+            <div class="card" style="margin-top:9px"> 
+
+
+
+              <!-- <div class="card-header pb-0">
+                <p style="font-weight:bold;font-size:16px;color:black">Order Tracking</p>
+                <p  class="orderpara" ><strong><span class="span1">OrderId:</span> HJIGL3458</strong></p>
+                <p  class="orderpara"><strong><span class="span1">OrderStatus:</span>Yet to be delivered</strong></p>
+                <p class="orderpara" ><strong><span class="span1"></span>Nagpur</strong><span class="span1">---><!---</span><strong>Bihar</strong></p> -->
+                <!-- <p class="orderpara" ><strong><span class="span1">From:</span>Bihar</strong></p> -->
+                <!-- <p class="orderpara"><strong><span class="span1">Current Status:</span>Shipment in transit on Fri Nov 18 22:23:45</strong></p>
+              </div> -->
+
+
+
+              <div class="p-3" style="padding-top:1px">
+                <h3 style="font-weight:bold;font-size:18px">Order Tracking</h3>
+                <p style="font-weight:bold;font-size:13px;color:black" id="orderidname"><strong><span class="span1">OrderId:</span> HJIGL3458</strong></p>
+                <p style="font-weight:bold;font-size:13px;color:black;margin-top:1px" id="orderstatus" ><strong><span class="span1">OrderStatus:</span> To be delivered</strong></p>
+                <p style="font-weight:bold;font-size:13px;color:black;margin-top:1px" id="movemen"><strong>Nagpur</strong><span class="span1">---></span><strong>Bihar</strong></p>
+                <div class="timeline timeline-one-side">
+                 
+                  <div class="timeline-block mb-3">
+                    <span class="timeline-step">
+                      <i class="material-icons text-danger text-gradient">code</i>
+                    </span>
+                    <div class="timeline-content">
+                      <h6 class="text-dark text-sm font-weight-bold mb-0" id="exactlocation">In Truck</h6>
+                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0" id="time">21 NOV 11 PM</p>
+                    </div>
+                  </div>
+                </div>                 
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+  <script>
+
+    const array = [
+        [79.3243396,9.285278],
+        [79.3284392,9.283556],
+        [79.3325388,9.281784],
+        [79.3366384,9.280062],
+        [79.340738,9.27829],
+        [79.3448376,9.276568],
+        [79.3489372,9.274796],
+        [79.3530368,9.273074],
+        [79.3571364,9.271302],
+        [79.361236,9.26958],
+        [79.3653356,9.267808],
+        [79.3694352,9.266086],
+        [79.3735348,9.264314],
+        [79.3776344,9.262592],
+        [79.381734,9.26082],
+        [79.3858336,9.259098],
+        [79.3899332,9.257326],
+        [79.3940328,9.255604],
+        [79.3981324,9.253832],
+        [79.402232,9.25211],
+        [79.4063316,9.250338],
+        [79.4104312,9.248616],
+        [79.4145308,9.246844],
+        [79.4186304,9.245122],
+        [79.42273,9.24335],
+        [79.4268296,9.241628],
+        [79.4309292,9.239856],
+        [79.4350288,9.238134],
+        [79.4391284,9.236362],
+        [79.443228,9.23464],
+        [79.4473276,9.232868],
+        [79.4514272,9.231146],
+        [79.4555268,9.229374],
+        [79.4596264,9.227652],
+        [79.463726,9.22588],
+        [79.4678256,9.224158],
+        [79.4719252,9.222386],
+        [79.4760248,9.220664],
+        [79.4801244,9.218892],
+        [79.484224,9.21717],
+        [79.4883236,9.215398],
+        [79.4924232,9.213676],
+        [79.4965228,9.211904],
+        [79.5006224,9.210182],
+        [79.504722,9.20841],
+        [79.5088216,9.206688],
+        [79.5129212,9.204916],
+        [79.5170208,9.203194],
+        [79.5211204,9.201422],
+        [79.52522,9.1997],
+        [79.5293196,9.197928],
+        [79.5334192,9.196206],
+        [79.5375188,9.194434],
+        [79.5416184,9.192712],
+        [79.545718,9.19094],
+        [79.5498176,9.189218],
+        [79.5539172,9.187446],
+        [79.5580168,9.185724],
+        [79.5621164,9.183952],
+        [79.566216,9.18223],
+        [79.5703156,9.180458],
+        [79.5744152,9.178736],
+        [79.5785148,9.176964],
+        [79.5826144,9.175242],
+        [79.586714,9.17347],
+        [79.5908136,9.171748],
+        [79.5949132,9.169976],
+        [79.5990128,9.168254],
+        [79.6031124,9.166482],
+        [79.607212,9.16476],
+        [79.6113116,9.162988],
+        [79.6154112,9.161266],
+        [79.6195108,9.159494],
+        [79.6236104,9.157772],
+        [79.62771,9.156],
+        [79.6318096,9.154278],
+        [79.6359092,9.152506],
+        [79.6400088,9.150784],
+        [79.6441084,9.149012],
+        [79.648208,9.14729],
+        [79.6523076,9.145518],
+        [79.6564072,9.143796],
+        [79.6605068,9.142024],
+        [79.6646064,9.140302],
+        [79.668706,9.13853],
+        [79.6728056,9.136808],
+        [79.6769052,9.135036],
+        [79.6810048,9.133314],
+        [79.6851044,9.131542],
+        [79.689204,9.12982],
+        [79.6933036,9.128048],
+        [79.6974032,9.126326],
+        [79.7015028,9.124554],
+        [79.7056024,9.122832],
+        [79.709702,9.12106],
+        [79.7138016,9.119338],
+        [79.7179012,9.117566],
+        [79.7220008,9.115844]
+    ]
+
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYW5pa2V0a2Vsa2FyIiwiYSI6ImNsN2l3MmhyZTBzOHo0MXAwZXA3a29zNDkifQ.E4IUUlt0DXa9ZCsL6OC5_g';
+    const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [79.5006224,9.210182], // starting position [lng, lat]
+    zoom: 10, // starting zoom
+    // display the map as a 3D globe
+    });
+
+    map.on('load', () => {
+        map.addSource('route', {
+        'type': 'geojson',
+        'data': {
+        'type': 'Feature',
+        'properties': {},
+        'geometry': {
+        'type': 'LineString',
+        'coordinates': array
+        }
+        }
+        });
+        map.addLayer({
+        'id': 'route',
+        'type': 'line',
+        'source': 'route',
+        'layout': {
+        'line-join': 'round',
+        'line-cap': 'round'
+        },
+        'paint': {
+        'line-color': '#888',
+        'line-width': 8
+        }
+        });
+        });
+</script>
+
+  <script>
+  var tempvar1=[];
+  var tempvar2=[];
+  var tempvar3 = [];
+
+  var but1 = document.getElementById("button1");
+  var but2 = document.getElementById("button2");
+
+  var areabut = document.getElementById("areabutton");
+  var linebut = document.getElementById("linebutton");
+
+  var dailybut = document.getElementById("dailybutton");
+  var hourbut =  document.getElementById("hourbutton");
+  var weekbut =  document.getElementById("weeklybutton");
+
+  var c1p1 = document.getElementById("c1p1");
+  var c1p2 = document.getElementById("c1p2");
+  var c2p1 = document.getElementById("c2p1");
+  var c2p2 = document.getElementById("c2p2");
+  var c3p1 = document.getElementById("c3p1");
+  var c3p2 = document.getElementById("c3p2");
+
+  var span1 = document.getElementById("span1");
+
+  var orderidname = document.getElementById("orderidname");
+  var orderstatus = document.getElementById("orderstatus");
+  //var movement = document.getElementById("movement");
+  var exactlocation = document.getElementById("exactlocation");
+  var time = document.getElementById("time");
+
+  var box1 = document.getElementById("box1");
+  var box2 = document.getElementById("box2");
+  var box3 = document.getElementById("box3");
+
+
+
+  function execute1()
+  {
+      box1.style.backgroundColor= "#4CAF50";
+      box2.style.backgroundColor= "aliceblue";
+      box3.style.backgroundColor= "aliceblue";
+      time.textContent = "21 NOV 11 PM";
+      exactlocation.textContent = "In Truck";
+      location.textContent = "Nagpur ---> Bihar";
+      orderstatus.textContent = "OrderStatus:To be delivered";
+      orderidname.textContent = "OrderId: HJIGL3458";
+  }
+
+  function execute2()
+  {
+      box1.style.backgroundColor= "aliceblue";
+      box2.style.backgroundColor= "#4CAF50";
+      box3.style.backgroundColor= "aliceblue";
+      time.textContent = "10 NOV 10 PM";
+      exactlocation.textContent = "In Truck";
+      location.textContent = "Nagpur ---> Bihar";
+      orderstatus.textContent = "OrderStatus:To be delivered";
+      orderidname.textContent = "OrderId: AHUTK1564";
+  }
+  function execute3()
+  {
+      box1.style.backgroundColor= "aliceblue";
+      box2.style.backgroundColor= "aliceblue";
+      box3.style.backgroundColor= "#4CAF50";
+      time.textContent = "2 NOV 10 PM";
+      exactlocation.textContent = "In Sea";
+      location.textContent = "Nagpur ---> Bihar";
+      orderstatus.textContent = "OrderStatus:To be delivered";
+      orderidname.textContent = "OrderId: TYERI2456";
+  }
+
+
+  function bt2()
+  {
+    but2.style.backgroundColor= "#008CBA";
+    but1.style.backgroundColor= "white";
+
+    // span1.textContent="OrderId";
+    // document.getElementById("span1").style.color="green";
+    c1p1.textContent = "OrderId: FYUIP3456";
+    c1p2.textContent = "Shipment delivered on Tue Nov 24 20:11:08";
+
+    // document.getElementById("span2").textContent="OrderId";
+    // document.getElementById("span2").style.color="green";
+    c2p1.textContent = "OrderId: NPOIU1367";
+    c2p2.textContent = "Shipment delivered on Fri Nov 10 22:23:45";
+
+    // document.getElementById("span3").textContent="OrderId";
+    // document.getElementById("span3").style.color="green";
+    c3p1.textContent = "OrderId: TYERI2456";
+    c3p2.textContent = "Shipment delivered on Sun Nov 1 15:10:02";
+    
+
+  }
+
+  function bt1()
+  {
+    but2.style.backgroundColor= "white";
+    but1.style.backgroundColor= "#4CAF50";
+
+    // span1.textContent="OrderId";
+    // document.getElementById("span1").style.color="green";
+    c1p1.textContent = "OrderId: HJIG23458";
+    c1p2.textContent = "Shipment in transit on Fri Nov 18 22:23:45";
+
+    // document.getElementById("span2").textContent="OrderId";
+    // document.getElementById("span2").style.color="green";
+    c2p1.textContent = "OrderId: AHUTK1564";
+    c2p2.textContent = "Shipment in truck Wed Nov 9 12:23:45";
+
+    // document.getElementById("span3").textContent="OrderId";
+    // document.getElementById("span3").style.color="green";
+    c3p1.textContent = "OrderId: WYUJI3782";
+    c3p2.textContent = "Shipment enrouted in sea Mon Nov 2 16:23:45";
+  
+  }
+    
+    window.Apex = {
+      chart: {
+    foreColor: 'black',
+    toolbar: {
+      show: false
+    },
+  },
+  colors: ['#FCCF31', '#17ead9', '#f02fc2'],
+  stroke: {
+    width: 1
+  },
+  dataLabels: {
+    enabled: false
+  },
+  grid: {
+    borderColor: "#40475D",
+  },
+  xaxis: {
+    axisTicks: {
+      color: '#333'
+    },
+    axisBorder: {
+      color: "#333"
+    }
+  },
+  // fill: {
+  //   type: 'gradient',
+  //   gradient: {
+  //     gradientToColors: ['#F55555', '#6078ea', '#6094ea']
+  //   },
+  // },
+  // tooltip: {
+  //   shared:true,
+  //   x: {
+  //     formatter: function (val) {
+  //       return moment(new Date(val)).format("HH:mm:ss")
+  //     }
+  //   }
+
+  // },
+  yaxis: {
+    decimalsInFloat: 2,
+    opposite: false,
+    labels: {
+      offsetX: -10
+    }
+  }
+};
+
+var list2 = JSON.parse('{{data1|safe}}')
+list2 = list2.reverse();
+
+var list3 = JSON.parse('{{data2|safe}}')
+list3 = list3.reverse();
+
+var list4 = JSON.parse('{{data3|safe}}')
+list4 = list4.reverse();
+
+
+
+function daily(list2,list3,list4,val)
+{
+  var fin =[];
+
+  var tempdaily=[];
+  var tempdaily1=[];
+  var tempdaily2 = [];
+
+  var start = parseInt(list2[0]['Time'].slice(14,16));
+  var strtdate = list2[0]['Time'];
+
+  for(var i=0;i<3590;i++)
+  {
+    strti=i;
+    temp = parseInt(list2[i]['Time'].slice(14,16));
+
+    var sum1 =0;
+    var sum2=0;
+    var sum3=0;
+
+    while(temp==start)
+    {
+      sum1 = sum1 + parseFloat(list2[i][val]);
+      sum2 = sum2 + parseFloat(list3[i][val]);
+      sum3 = sum3 + parseFloat(list4[i][val]);
+      i=i+1;
+      temp = parseInt(list2[i]['Time'].slice(14,16));
+    }
+    endi=i;
+
+    tempdaily.push([strtdate,Math.round(sum1/(endi-strti)*100)/100]);
+    tempdaily1.push([strtdate,Math.round(sum2/(endi-strti)*100)/100]);
+    tempdaily2.push([strtdate,Math.round(sum3/(endi-strti)*100)/100]);
+
+    start = start+1;
+    if (start === 60)
+    {
+      start = 0;
+    }
+    strtdate = list2[i]['Time'];
+  }
+  fin.push(tempdaily);
+  fin.push(tempdaily1);
+  fin.push(tempdaily2);
+
+  return fin;
+}
+
+function hourly(list2,list3,list4,val)
+{
+  var fin =[];
+
+  var temphourly=[];
+  var temphourly1=[];
+  var temphourly2 = [];
+
+  var start = parseInt(list2[0]['Time'].slice(11,13));
+  var strtdate = list2[0]['Time'];
+
+  for(var i=0;i<3600;i++)
+  {
+    strti=i;
+    temp = parseInt(list2[i]['Time'].slice(11,13));
+    console.log(temp);
+    var sum1 =0;
+    var sum2=0;
+    var sum3=0;
+
+    while(temp==start)
+    {
+      sum1 = sum1 + parseFloat(list2[i][val]);
+      sum2 = sum2 + parseFloat(list3[i][val]);
+      sum3 = sum3 + parseFloat(list4[i][val]);
+      i=i+1;
+      if(i>=3600)
+      {
+        break;
+      }
+      temp = parseInt(list2[i]['Time'].slice(11,13));
+    }
+    endi=i;
+
+    temphourly.push([strtdate,Math.round(sum1/(endi-strti)*100)/100]);
+    temphourly1.push([strtdate,Math.round(sum2/(endi-strti)*100)/100]);
+    temphourly2.push([strtdate,Math.round(sum3/(endi-strti)*100)/100]);
+
+    start = start+1;
+    if (start === 24)
+    {
+      start = 0;
+    }
+    if(i<3600)
+    {
+    strtdate = list2[i]['Time'];
+    }
+  }
+  fin.push(temphourly);
+  fin.push(temphourly1);
+  fin.push(temphourly2);
+
+  return fin;
+}
+var tempdaily=[];tempdaily1=[];tempdaily2=[];temphourly=[];temphourly1=[];temphourly2=[];
+
+var fin = daily(list2,list3,list4,'Temperature');
+var fin1 = hourly(list2,list3,list4,'Temperature');
+tempdaily=fin[0];
+tempdaily1=fin[1];
+tempdaily2 = fin[2];
+temphourly=fin1[0],temphourly1=fin1[1],temphourly2=fin1[2];
+
+var xt = [];
+var xt1 = [];
+var xt2 = [];
+
+var ht = [];
+var ht1 = [];
+var ht2 = [];
+
+var e = document.getElementById("DropDowngraph");
+e.addEventListener('change',track);
+
+var e1 = document.getElementById("DropDownsensor");
+e1.addEventListener('change',track1);
+
+function track1()
+{
+
+}
+
+// dailybut.addEventListener('click')
+function track(){
+  // console.log(e.value);
+  chartLine.updateOptions({
+    title: {
+      text: e.value
+    }
+  })
+    xt=[];
+    xt1=[];
+    xt2=[];
+    ht=[];
+    ht1=[];
+    ht2=[];
+    var fin = daily(list2,list3,list4,e.value);
+    var fin1 = hourly(list2,list3,list4,e.value);
+    tempdaily=fin[0];
+    tempdaily1=fin[1];
+    tempdaily2 = fin[2];
+    temphourly=fin1[0],temphourly1=fin1[1],temphourly2=fin1[2];
+
+    for(var i=0;i<2;i++)
+    {
+      xt.push([tempdaily[i][0],tempdaily[i][1]]);
+      xt1.push([tempdaily1[i][0],tempdaily1[i][1]]);
+      xt2.push([tempdaily2[i][0],tempdaily2[i][1]]);
+    }
+    for(var i=0;i<2;i++)
+    {
+      ht.push([temphourly[i][0],temphourly[i][1]]);
+      ht1.push([temphourly1[i][0],temphourly1[i][1]]);
+      ht2.push([temphourly2[i][0],temphourly2[i][1]]);
+}
+console.log(xt);
+console.log(xt1);
+console.log(xt2);
+
+if(dailybut.value === "Daily")
+{
+
+chartLine.updateOptions({
+      series: [
+    {
+    name: 'Sensor1',
+    data: xt,
+   },
+   {
+    name: 'Sensor2',
+    data:xt1
+   },
+   {
+    name: 'Sensor3',
+    data:xt2
+   },
+],
+    })
+    var y=0;
+    window.setInterval(function () {
+      if (y<3500)
+    {
+      // console.log(tempdaily2[y][1]);
+      // console.log(tempdaily1[y][1]);
+      // console.log(tempdaily[y][1]);
+
+  chartLine.updateOptions({
+    series: [
+      {
+        data: tempdaily[y]
+        // [ 
+        //   [
+        //     tempdaily[y][0],
+        //     tempdaily[y][1]
+
+        //   ]
+        // ],
+      },
+      {
+        data: tempdaily1[y]
+        // [
+        //   ...chartLine.w.config.series[1].data,
+        //   [
+        //     tempdaily1[y][0],
+        //     tempdaily1[y][1]
+        //   ]
+        // ],
+
+      },
+      {
+        data: tempdaily2[y]
+        // [
+        //   ...chartLine.w.config.series[2].data,
+        //   [
+        //     tempdaily2[y][0],
+        //     tempdaily2[y][1]
+        //   ]
+        // ],
+
+      }
+    ]
+  });
+
+    }
+    else
+    {
+      y=0
+      chartLine.updateOptions({
+      series: [
+      {
+        data: tempdaily[y]
+        // [
+        //   ...chartLine.w.config.series[0].data,
+        //   [
+        //     tempdaily[y][0],
+        //     tempdaily[y][1]
+        //   ]
+        // ],
+
+      },
+      {
+        data: tempdaily1[y]
+        // [
+        //   ...chartLine.w.config.series[1].data,
+        //   [
+        //     tempdaily1[y][0],
+        //     tempdaily1[y][1]
+        //   ]
+        // ],
+
+      },
+      {
+        data: tempdaily2[y]
+        // [
+        //   ...chartLine.w.config.series[2].data,
+        //   [
+        //     tempdaily2[y][0],
+        //     tempdaily2[y][1]
+        //   ]
+        // ],
+
+      }
+    ]
+  });
+    }
+y=y+1;
+
+}, 3000); 
+}
+console.log(temphourly);
+console.log(temphourly1);
+console.log(temphourly2);
+}
+
+// console.log(temphourly);
+// console.log(temphourly1);
+// console.log(temphourly2);
+
+// var start = parseInt(list2[0]['Time'].slice(14,16));
+// var strtdate = list2[0]['Time'];
+
+// var starthour = parseInt(list2[0]['Time'].slice(11,13));
+
+// for(var i=0;i<3590;i++)
+// {
+//   strti=i;
+//   temp = parseInt(list2[i]['Time'].slice(14,16));
+
+//   strth = i;
+//   temph = parseInt(list2[0]['Time'].slice(11,13));
+
+//   var sum1 =0;
+//   var sum2=0;
+//   var sum3=0;
+
+//   var sum4 =0;
+
+//   while(temp==start)
+//   {
+//     sum1 = sum1 + parseFloat(list2[i]['Temperature']);
+//     sum2 = sum2 + parseFloat(list3[i]['Temperature']);
+//     sum3 = sum3 + parseFloat(list4[i]['Temperature']);
+//     i=i+1;
+//     temp = parseInt(list2[i]['Time'].slice(14,16));
+//   }
+//   endi=i;
+//   tempdaily.push([strtdate,Math.round(sum1/(endi-strti)*100)/100]);
+//   tempdaily1.push([strtdate,Math.round(sum2/(endi-strti)*100)/100]);
+//   tempdaily2.push([strtdate,Math.round(sum3/(endi-strti)*100)/100]);
+//   start = start+1;
+//   if (start === 60)
+//   {
+//     start = 0;
+//   }
+//   strtdate = list2[i]['Time'];
+// }
+// // console.log(tempdaily);
+
+for(var i=0;i<2;i++)
+{
+xt.push([tempdaily[i][0],tempdaily[i][1]]);
+xt1.push([tempdaily1[i][0],tempdaily1[i][1]]);
+xt2.push([tempdaily2[i][0],tempdaily2[i][1]]);
+}
+for(var i=0;i<2;i++)
+{
+ht.push([temphourly[i][0],temphourly[i][1]]);
+ht1.push([temphourly1[i][0],temphourly1[i][1]]);
+ht2.push([temphourly2[i][0],temphourly2[i][1]]);
+}
+
+var n=[]
+for(i<0;i<tempdaily.length;i++)
+{
+    n.push(tempdaily[i][1]);
+}
+console.log(n);
+
+
+// Define the function to send the alert email
+function sendAlertEmail(alertValue, userEmail) {
+  // Set up the EmailJS parameters
+  const serviceID = 'service_7c803fa';
+  const templateID = 'template_tbt66yo';
+  // const userID = 'YOUR_USER_ID_HERE';
+
+  // Set up the email message parameters
+  const messageParams = {
+    to_email: userEmail,
+    alert_value: alertValue,
+    message:"Warning sign.The temperature value is higher than ususal"
+  };
+
+  // Send the email using EmailJS
+  emailjs.send(serviceID, templateID, messageParams)
+    .then((response) => {
+      console.log('Alert email sent!', response.status, response.text);
+    }, (error) => {
+      console.log('Error sending alert email:', error);
+    });
+}
+
+// Example usage:
+const alertValue = 15;
+const userEmail = 'sahithiaggi7@gmail.com';
+if (alertValue > 13) {
+  sendAlertEmail(alertValue, userEmail);
+}
+
+// function sendMail()
+// {
+//   const serviceID="service_7c803fa";
+//   const templateID = "template_tbt66yo";
+
+
+//   var params={
+//     name:"Rajesh",
+//     email:"sahithiaggi7@gmail.com",
+//     message:"Hello This is a warning Message",
+//     to_email:"sahithiaggi7@gmail.com",
+//   };
+
+//   emailjs.send(serviceID, templateID, params)
+//     .then((response) => {
+//       console.log('Alert email sent!', response.status, response.text);
+//     }, (error) => {
+//       console.log('Error sending alert email:', error);
+//     });
+
+// }
+// sendMail();
+
+
+var optionsArea = {
+  chart: {
+    height: 350,
+    type: 'area',
+    stacked : true,
+    animations: {
+      enabled: false
+    },
+    events: {
+      animationEnd: function (chartCtx, opts) {
+        const xt = chartCtx.w.config.series[0].data.slice()
+        xt.shift()
+      }
+    },
+    toolbar: {
+      show: false
+    },
+    zoom: {
+      enabled: false
+    }
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    curve:'smooth',
+  },
+  tooltip: {
+    enabled:true,
+    shared: true,
+    followCursor: true,
+    // intersect: true,
+    x: {
+      show: true,
+      format: 'dd/MM/yy HH:mm:ss'
+    },
+  },
+  
+  series: [
+    {
+    name: 'Sensor1',
+    data: xt,
+   },
+   {
+    name: 'Sensor2',
+    data:xt1
+   },
+   {
+    name: 'Sensor3',
+    data:xt2
+   },
+],
+colors: ['#008FFB', '#00E396', '#CED4DC'],
+  
+  title: {
+    text: 'Temperature',
+    align: 'left',
+    style: {
+      fontSize: '12px'
+    }
+  },
+
+  fill: {
+    type: 'gradient',
+    gradient: {
+      // shade: 'dark',
+      // type: 'vertical',
+      // shadeIntensity: 0.5,
+      // inverseColors: false,
+      opacityFrom: 0.6,
+      opacityTo: 0.8,
+      // stops: [0, 100]
+    }
+  },
+  xaxis: {
+    type: 'datetime',
+    labels:{
+      datetimeUTC: false,
+    }
+    //range: 2700000
+  },
+   
+  
+}
+
+
+var chartLine = new ApexCharts(document.querySelector("#linechart"),optionsArea);
+chartLine.render()
+
+
+function areabt()
+  {
+    linebut.style.backgroundColor= "white";
+    areabut.style.backgroundColor= "#0000FF";
+    areabut.style.color = "white";
+    linebut.style.color = "black";
+
+    chartLine.updateOptions({
+      chart:
+      {
+        type:'area',
+        // stacked : false
+      }
+    })
+
+  }
+
+  function linebt()
+  {
+    linebut.style.backgroundColor= "#0000FF";
+    areabut.style.backgroundColor= "white";
+    linebut.style.color = "white";
+    areabut.style.color = "black";
+
+    chartLine.updateOptions({
+      chart:
+      {
+        type:'bar'
+      }
+    })
+  }
+
+  function dailybt()
+  {
+    dailybut.style.backgroundColor= "#0000FF";
+    hourbut.style.backgroundColor= "white";
+    weekbut.style.backgroundColor= "white";
+    dailybut.style.color = "white";
+    hourbut.style.color = "black";
+    weekbut.style.color = "black";
+    
+    chartLine.updateOptions({
+      series: [
+    {
+    name: 'Sensor1',
+    data: xt,
+   },
+   {
+    name: 'Sensor2',
+    data:xt1
+   },
+   {
+    name: 'Sensor3',
+    data:xt2
+   },
+],
+    })
+    var y=0;
+    window.setInterval(function () {
+      if (y<3500)
+    {
+      // console.log(tempdaily2[y][1]);
+      // console.log(tempdaily1[y][1]);
+      // console.log(tempdaily[y][1]);
+
+  chartLine.updateOptions({
+    series: [
+      {
+        data:
+        [
+          ...chartLine.w.config.series[0].data,
+          [
+            tempdaily[y][0],
+            tempdaily[y][1]
+
+          ]
+        ],
+      },
+      {
+        data: 
+        [
+          ...chartLine.w.config.series[1].data,
+          [
+            tempdaily1[y][0],
+            tempdaily1[y][1]
+          ]
+        ],
+
+      },
+      {
+        data: 
+        [
+          ...chartLine.w.config.series[2].data,
+          [
+            tempdaily2[y][0],
+            tempdaily2[y][1]
+          ]
+        ],
+
+      }
+    ]
+  });
+
+    }
+    else
+    {
+      y=0
+      chartLine.updateOptions({
+      series: [
+      {
+        data: 
+        [
+          ...chartLine.w.config.series[0].data,
+          [
+            tempdaily[y][0],
+            tempdaily[y][1]
+          ]
+        ],
+
+      },
+      {
+        data: 
+        [
+          ...chartLine.w.config.series[1].data,
+          [
+            tempdaily1[y][0],
+            tempdaily1[y][1]
+          ]
+        ],
+
+      },
+      {
+        data: 
+        [
+          ...chartLine.w.config.series[2].data,
+          [
+            tempdaily2[y][0],
+            tempdaily2[y][1]
+          ]
+        ],
+
+      }
+    ]
+  });
+    }
+y=y+1;
+
+}, 8000);             //60,000 
+
+  }
+
+  function hourbt()
+  {
+    hourbut.style.backgroundColor= "#0000FF";
+    dailybut.style.backgroundColor= "white";
+    weekbut.style.backgroundColor= "white";
+    hourbut.style.color = "white";
+    dailybut.style.color = "black";
+    weekbut.style.color = "black";
+    
+    chartLine.updateOptions({
+      series: [
+    {
+    name: 'Sensor1',
+    data: ht,
+   },
+   {
+    name: 'Sensor2',
+    data:ht1
+   },
+   {
+    name: 'Sensor3',
+    data:ht2
+   },
+],
+    })
+    var y=0;
+    window.setInterval(function () {
+      if (y<11)
+    {
+      // console.log(tempdaily2[y][1]);
+      // console.log(tempdaily1[y][1]);
+      // console.log(tempdaily[y][1]);
+
+  chartLine.updateOptions({
+    series: [
+      {
+        data: 
+         [
+          ...chartLine.w.config.series[0].data,
+          [
+            temphourly[y][0],
+            temphourly[y][1]
+
+          ]
+        ],
+      },
+      {
+        data: 
+        [
+          ...chartLine.w.config.series[1].data,
+          [
+            temphourly1[y][0],
+            temphourly1[y][1]
+          ]
+        ],
+
+      },
+      {
+        data:
+        [
+          ...chartLine.w.config.series[2].data,
+          [
+            temphourly2[y][0],
+            temphourly2[y][1]
+          ]
+        ],
+
+      }
+    ]
+  });
+
+    }
+  //   else
+  //   {
+  //     y=0
+  //     chartLine.updateOptions({
+  //     series: [
+  //     {
+  //       data: [
+  //         ...chartLine.w.config.series[0].data,
+  //         [
+  //           tempdaily[y][0],
+  //           tempdaily[y][1]
+  //         ]
+  //       ],
+
+  //     },
+  //     {
+  //       data: [
+  //         ...chartLine.w.config.series[1].data,
+  //         [
+  //           tempdaily1[y][0],
+  //           tempdaily1[y][1]
+  //         ]
+  //       ],
+
+  //     },
+  //     {
+  //       data: [
+  //         ...chartLine.w.config.series[2].data,
+  //         [
+  //           tempdaily2[y][0],
+  //           tempdaily2[y][1]
+  //         ]
+  //       ],
+
+  //     }
+  //   ]
+  // });
+  //   }
+y=y+1;
+
+}, 3000);        //36e+5
+  }
+
+
+// var e = document.getElementById("DropDowngraph");
+// e.addEventListener('change',track);
+// function track(){
+//   // console.log(e.value);
+//   chartLine.updateOptions({
+//     title: {
+//       text: e.value
+//     }
+//   })
+
+// }
+const max = 10;
+function valueToPercent (value) {
+  return (value) / max
+} 
+var optionsCircle1 = {
+  chart: {
+    type: 'radialBar',
+    height: 220,
+    offsetY: -20,
+    sparkline: {
+        enabled: true
+    }
+  },
+  plotOptions: {
+    radialBar: {
+    startAngle: -90,
+    endAngle: 90,
+    track: {
+        background: "#e7e7e7",
+        strokeWidth: '60%',
+        margin: 5, // margin is in pixels
+        dropShadow: {
+        enabled: true,
+        top: 2,
+        left: 0,
+        color: '#999',
+        opacity: 1,
+        blur: 2
+    }
+    },
+    dataLabels: {
+        name: {
+        show: false
+        },
+        value: {
+            offsetY: -2,
+            fontSize: '22px',
+            formatter: function (val) {
+            return String(Math.round(parseFloat(val)*100)/100) + ' °C'
+          }
+        },
+    }
+    },
+  },
+  grid: {
+    padding: {
+    top: -10
+    }
+},
+  series: [valueToPercent(18)],
+  labels: ['Device 1'],
+  fill: {
+          type: 'gradient',
+          gradient: {
+            gradientToColors: ['#F55555', '#6078ea', '#6094ea'],
+            shade: 'light',
+            shadeIntensity: 0.4,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 50, 53, 91]
+          },
+        },
+};
+
+var optionsCircle2 = {
+  chart: {
+    type: 'radialBar',
+    height: 220,
+    offsetY: -20,
+    sparkline: {
+        enabled: true
+    }
+  },
+  plotOptions: {
+    radialBar: {
+    startAngle: -90,
+    endAngle: 90,
+    track: {
+        background: "#e7e7e7",
+        strokeWidth: '60%',
+        margin: 5, // margin is in pixels
+        dropShadow: {
+        enabled: true,
+        top: 2,
+        left: 0,
+        color: '#999',
+        opacity: 1,
+        blur: 2
+    }
+    },
+    dataLabels: {
+        name: {
+        show: false
+        },
+        value: {
+            offsetY: -2,
+            fontSize: '22px',
+            formatter: function (val) {
+            return String(Math.round(parseFloat(val)*10)/10) + ' %'
+          }
+        },
+    }
+    },
+  },
+  grid: {
+    padding: {
+    top: -10
+    }
+},
+  series: [76],
+  labels: ['Device 1'],
+  fill: {
+          type: 'gradient',
+          gradient: {
+            gradientToColors: ['#F55555', '#6078ea', '#6094ea'],
+            shade: 'light',
+            shadeIntensity: 0.4,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 50, 53, 91]
+          },
+        },
+};
+
+var optionsCircle3 = {
+  chart: {
+    type: 'radialBar',
+    height: 220,
+    offsetY: -20,
+    sparkline: {
+        enabled: true
+    }
+  },
+  // options: {
+  //   scale:  {
+  //   ticks: {
+  //     min: 500,  // set the minimum value of the scale
+  //     max: 1000 // set the maximum value of the scale
+  //   }
+  // }
+  // },
+  plotOptions: {
+    radialBar: {
+    startAngle: -90,
+    endAngle: 90,
+    track: {
+        background: "#e7e7e7",
+        strokeWidth: '60%',
+        margin: 5, // margin is in pixels
+        dropShadow: {
+        enabled: true,
+        top: 2,
+        left: 0,
+        color: '#999',
+        opacity: 1,
+        blur: 2
+    }
+    },
+    dataLabels: {
+        name: {
+        show: false
+        },
+        value: {
+            offsetY: -2,
+            fontSize: '22px',
+            formatter: function (val) {
+            return String(Math.round(parseFloat(val)*10)/10) + ' ppm'
+          }
+        },
+    }
+    },
+  },
+  grid: {
+    padding: {
+    top: -10
+    }
+},
+  series: [valueToPercent(76)],
+  labels: ['Device 1'],
+  fill: {
+          type: 'gradient',
+          gradient: {
+            gradientToColors: ['#F55555', '#6078ea', '#6094ea'],
+            shade: 'light',
+            shadeIntensity: 0.4,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            // stops: [0, 50, 53, 91]
+          },
+        },
+};
+
+var optionsCircle4 = {
+  chart: {
+    type: 'radialBar',
+    height: 220,
+    offsetY: -20,
+    sparkline: {
+        enabled: true
+    }
+  },
+  plotOptions: {
+    radialBar: {
+    startAngle: -90,
+    endAngle: 90,
+    track: {
+        background: "#e7e7e7",
+        strokeWidth: '60%',
+        margin: 5, // margin is in pixels
+        dropShadow: {
+        enabled: true,
+        top: 2,
+        left: 0,
+        color: '#999',
+        opacity: 1,
+        blur: 2
+    }
+    },
+    dataLabels: {
+        name: {
+        show: false
+        },
+        value: {
+            offsetY: -2,
+            fontSize: '22px',
+            formatter: function (val) {
+            return String(Math.round(parseFloat(val)*100)/100) + ' %'
+          }
+        },
+    }
+    },
+  },
+  grid: {
+    padding: {
+    top: -10
+    }
+},
+  series: [76],
+  labels: ['Device 1'],
+  fill: {
+          type: 'gradient',
+          gradient: {
+            gradientToColors: ['#F55555', '#6078ea', '#6094ea'],
+            shade: 'light',
+            shadeIntensity: 0.4,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 50, 53, 91]
+          },
+        },
+};
+
+var chartCircletemp = new ApexCharts(document.querySelector('#circlecharttemp'), optionsCircle1);
+chartCircletemp.render();
+
+var chartCirclehumid = new ApexCharts(document.querySelector('#circlecharthumid'), optionsCircle2);
+chartCirclehumid.render();
+
+var chartCircleco2 = new ApexCharts(document.querySelector('#circlechartco2'), optionsCircle3);
+chartCircleco2.render();
+
+var chartCircleethy = new ApexCharts(document.querySelector('#circlechartethy'), optionsCircle4);
+chartCircleethy.render();
+
+// var list1 = JSON.parse('{{data|safe}}')
+// list1=list1.reverse();
+//console.log(list1)
+x=0;
+
+
+tempdaily= tempdaily.slice(2,);
+tempdaily1= tempdaily1.slice(2,);
+tempdaily2= tempdaily2.slice(2,);
+
+
+var y=0;
+
+window.setInterval(function () {
+
+   if(x>=3600)
+   {
+    x=0;
+    // chartCircletemp.updateSeries([list2[Math.floor(x/10)]['Temperature']])
+    // chartCirclehumid.updateSeries([list2[Math.floor(x/10)]['Humidity']])
+    // chartCircleco2.updateSeries([list2[Math.floor(x/10)]['co2ppm']])
+    // chartCircleethy.updateSeries([list2[Math.floor(x/10)]['ethylene1']])
+   }
+  //  else
+  //  {
+    chartCircletemp.updateSeries([list2[x]['Temperature']])
+    chartCirclehumid.updateSeries([list2[x]['Humidity']])
+    chartCircleco2.updateSeries([list2[x]['co2ppm']])
+    chartCircleethy.updateSeries([list2[x]['ethylene1']])
+    if(list2[x]['Temperature']>=15)
+    {
+        // const alertValue = 100;
+        // const userEmail = 'sahithiaggi7@gmail.com';
+       //sendAlertEmail(list2[x]['Temperature'], userEmail);
+    }
+    
+  //  }
+   
+   
+    x++;
+    chartLine.updateOptions({
+      chart:{
+        stacked : true,
+      },
+    // legend: {
+    //   show:false,
+    // },
+    // tooltip:{
+    //   shared:true,
+    // },
+    
+
+  })
+    if (y<3500)
+    {
+      // console.log(tempdaily2[y][1]);
+      // console.log(tempdaily1[y][1]);
+      // console.log(tempdaily[y][1]);
+
+  chartLine.updateOptions({
+    series: [
+      {
+        data: [
+          ...chartLine.w.config.series[0].data,
+          [
+            tempdaily[y][0],
+            tempdaily[y][1]
+
+          ]
+        ],
+      },
+      {
+        data: [
+          ...chartLine.w.config.series[1].data,
+          [
+            tempdaily1[y][0],
+            tempdaily1[y][1]
+          ]
+        ],
+
+      },
+      {
+        data: [
+          ...chartLine.w.config.series[2].data,
+          [
+            tempdaily2[y][0],
+            tempdaily2[y][1]
+          ]
+        ],
+
+      }
+    ]
+  });
+
+    }
+    else
+    {
+      y=0
+      chartLine.updateOptions({
+      series: [
+      {
+        data: [
+          ...chartLine.w.config.series[0].data,
+          [
+            tempdaily[y][0],
+            tempdaily[y][1]
+          ]
+        ],
+
+      },
+      {
+        data: [
+          ...chartLine.w.config.series[1].data,
+          [
+            tempdaily1[y][0],
+            tempdaily1[y][1]
+          ]
+        ],
+
+      },
+      {
+        data: [
+          ...chartLine.w.config.series[2].data,
+          [
+            tempdaily2[y][0],
+            tempdaily2[y][1]
+          ]
+        ],
+
+      }
+    ]
+  });
+    }
+y=y+1;
+
+}, 3000);
+  </script>
+
+
+
+
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+</body>
+
+</html>
